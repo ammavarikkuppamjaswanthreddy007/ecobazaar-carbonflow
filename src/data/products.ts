@@ -8,6 +8,7 @@ export const products = [
     category: "clothing",
     isEcoFriendly: true,
     description: "100% organic cotton, sustainably sourced and ethically produced.",
+    rating: 5,
   },
   {
     id: "2",
@@ -18,6 +19,7 @@ export const products = [
     category: "accessories",
     isEcoFriendly: true,
     description: "Reusable bamboo water bottle, keeps drinks cold for 24 hours.",
+    rating: 5,
   },
   {
     id: "3",
@@ -28,6 +30,7 @@ export const products = [
     category: "electronics",
     isEcoFriendly: true,
     description: "Portable solar charger with 10000mAh capacity.",
+    rating: 4,
   },
   {
     id: "4",
@@ -38,6 +41,7 @@ export const products = [
     category: "stationery",
     isEcoFriendly: true,
     description: "100% recycled paper, eco-friendly binding.",
+    rating: 5,
   },
   {
     id: "5",
@@ -48,6 +52,7 @@ export const products = [
     category: "accessories",
     isEcoFriendly: true,
     description: "Durable hemp fabric backpack with laptop compartment.",
+    rating: 4,
   },
   {
     id: "6",
@@ -58,6 +63,7 @@ export const products = [
     category: "personal-care",
     isEcoFriendly: true,
     description: "Pack of 4 biodegradable bamboo toothbrushes.",
+    rating: 5,
   },
   {
     id: "7",
@@ -68,6 +74,7 @@ export const products = [
     category: "kitchen",
     isEcoFriendly: true,
     description: "Insulated reusable coffee cup with leak-proof lid.",
+    rating: 4,
   },
   {
     id: "8",
@@ -78,5 +85,6 @@ export const products = [
     category: "fitness",
     isEcoFriendly: true,
     description: "Natural rubber yoga mat, free from PVC and latex.",
+    rating: 4,
   },
 ];

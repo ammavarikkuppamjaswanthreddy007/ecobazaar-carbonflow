@@ -1,8 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, ShoppingCart } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Leaf, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Product {
@@ -11,8 +11,8 @@ interface Product {
   price: number;
   image: string;
   carbonFootprint: number;
+  rating: number;
   category: string;
-  isEcoFriendly: boolean;
 }
 
 interface ProductCardProps {
@@ -20,64 +20,67 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const navigate = useNavigate();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const getCarbonColor = (carbon: number) => {
-    if (carbon < 3) return "text-primary";
-    if (carbon < 6) return "text-accent";
-    return "text-destructive";
-  };
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleAddToCart = () => {
     toast({
       title: "Added to cart! 🛒",
-      description: product.name,
+      description: `${product.name} has been added to your cart.`,
     });
   };
 
+  const carbonBadge = 
+    product.carbonFootprint < 3 ? "low" : 
+    product.carbonFootprint < 6 ? "medium" : 
+    "high";
+
   return (
-    <Card 
-      className="group overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300"
-      onClick={() => navigate(`/product/${product.id}`)}
-    >
+    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
       <div className="relative overflow-hidden">
-        <img
-          src={product.image}
+        <img 
+          src={product.image} 
           alt={product.name}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
         />
-        {product.isEcoFriendly && (
-          <Badge className="absolute top-2 right-2 bg-primary">
-            🌿 Eco-Friendly
-          </Badge>
-        )}
+        <Badge 
+          className="absolute top-2 right-2"
+          variant={carbonBadge === "low" ? "default" : carbonBadge === "medium" ? "secondary" : "destructive"}
+        >
+          {carbonBadge === "low" ? "🌿 Low" : carbonBadge === "medium" ? "⚠️ Medium" : "🔴 High"} Carbon
+        </Badge>
       </div>
       
-      <div className="p-4">
-        <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
-          {product.name}
-        </h3>
-        
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-2xl font-bold">${product.price}</span>
-          <div className="flex items-center gap-1">
-            <Leaf className={`w-4 h-4 ${getCarbonColor(product.carbonFootprint)}`} />
-            <span className={`text-sm font-medium ${getCarbonColor(product.carbonFootprint)}`}>
-              {product.carbonFootprint} kg CO₂
-            </span>
+      <div className="p-4 space-y-3">
+        <div>
+          <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
+          <div className="flex items-center gap-1 mt-1">
+            {[...Array(5)].map((_, i) => (
+              <Star 
+                key={i} 
+                className={`w-4 h-4 ${i < product.rating ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"}`}
+              />
+            ))}
+            <span className="text-sm text-muted-foreground ml-1">({product.rating})</span>
           </div>
         </div>
 
-        <Button 
-          className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
-          variant="outline"
-          onClick={handleAddToCart}
-        >
-          <ShoppingCart className="w-4 h-4 mr-2" />
-          Add to Cart
-        </Button>
+        <div className="flex items-center gap-2">
+          <Leaf className="w-4 h-4 text-primary" />
+          <span className="text-sm text-muted-foreground">{product.carbonFootprint} kg CO₂</span>
+        </div>
+
+        <div className="flex flex-col gap-2 pt-2">
+          <span className="text-2xl font-bold">${product.price}</span>
+          <div className="flex gap-2">
+            <Button onClick={() => navigate(`/product/${product.id}`)} variant="outline" className="flex-1">
+              View Details
+            </Button>
+            <Button onClick={handleAddToCart} className="flex-1">
+              Add to Cart
+            </Button>
+          </div>
+        </div>
       </div>
     </Card>
   );

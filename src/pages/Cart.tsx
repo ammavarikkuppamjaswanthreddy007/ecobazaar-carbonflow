@@ -60,12 +60,7 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    toast({
-      title: "Order placed! 🎉",
-      description: `You earned ${carbonPoints} Carbon Points for choosing eco-friendly products!`,
-    });
-    setCartItems([]);
-    setTimeout(() => navigate("/profile"), 1500);
+    navigate("/checkout");
   };
 
   return (

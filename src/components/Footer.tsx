@@ -1,5 +1,5 @@
-import { Leaf, Facebook, Twitter, Instagram, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Leaf } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -29,37 +29,25 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">About</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/" className="hover:text-primary transition-colors">Our Story</Link></li>
-              <li><Link to="/" className="hover:text-primary transition-colors">Carbon Impact</Link></li>
-              <li><Link to="/" className="hover:text-primary transition-colors">Sustainability</Link></li>
-              <li><Link to="/" className="hover:text-primary transition-colors">Contact</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">Our Story</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">Sustainability</Link></li>
+              <li><Link to="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Connect</h3>
-            <div className="flex gap-4 mb-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Subscribe to our newsletter for eco tips and exclusive offers.
-            </p>
+            <h3 className="font-semibold mb-4">Support</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link to="/faq" className="hover:text-primary transition-colors">Help Center</Link></li>
+              <li><Link to="/faq" className="hover:text-primary transition-colors">Shipping Info</Link></li>
+              <li><Link to="/faq" className="hover:text-primary transition-colors">Returns</Link></li>
+            </ul>
           </div>
+
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2025 EcoBazaar. Track. Shop. Save the Earth.</p>
+          <p>© 2025 EcoBazaar. All rights reserved. Built with 💚 for the planet.</p>
         </div>
       </div>
     </footer>

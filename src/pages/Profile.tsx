@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, Package, MapPin, Award } from "lucide-react";
+import { Leaf, Package, MapPin, Award, Heart } from "lucide-react";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -27,6 +27,11 @@ const Profile = () => {
   const orders = [
     { id: "1", date: "2025-01-15", total: 89.97, carbon: 8.5, status: "Delivered" },
     { id: "2", date: "2025-01-10", total: 149.99, carbon: 12.3, status: "In Transit" },
+  ];
+
+  const wishlist = [
+    { id: "3", name: "Recycled Backpack", price: 49.99, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
+    { id: "8", name: "Solar Power Bank", price: 39.99, image: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5" },
   ];
 
   return (
@@ -93,6 +98,29 @@ const Profile = () => {
                       </div>
                       <Button variant="outline" size="sm">View Details</Button>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Heart className="w-6 h-6 text-primary" />
+                Wishlist
+              </h3>
+              <div className="space-y-4">
+                {wishlist.map(item => (
+                  <div key={item.id} className="flex gap-4 border rounded-lg p-3 hover:shadow-md transition-shadow">
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      className="w-20 h-20 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <p className="font-semibold">{item.name}</p>
+                      <p className="text-lg font-bold text-primary">${item.price}</p>
+                    </div>
+                    <Button size="sm">Add to Cart</Button>
                   </div>
                 ))}
               </div>
