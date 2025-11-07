@@ -65,6 +65,9 @@ const Navbar = () => {
             <Link to="/products" className="hover:text-primary transition-colors whitespace-nowrap">
               Products
             </Link>
+            <Link to="/recycle" className="hover:text-primary transition-colors whitespace-nowrap">
+              Recycle
+            </Link>
             <Link to="/about" className="hover:text-primary transition-colors whitespace-nowrap">
               About
             </Link>
@@ -120,8 +123,14 @@ const Navbar = () => {
               <Link to="/products" className="hover:text-primary transition-colors">
                 Products
               </Link>
-              <Link to="/" className="hover:text-primary transition-colors">
+              <Link to="/recycle" className="hover:text-primary transition-colors">
+                Recycle
+              </Link>
+              <Link to="/about" className="hover:text-primary transition-colors">
                 About
+              </Link>
+              <Link to="/contact" className="hover:text-primary transition-colors">
+                Contact
               </Link>
               <Link to="/cart" className="hover:text-primary transition-colors">
                 Cart

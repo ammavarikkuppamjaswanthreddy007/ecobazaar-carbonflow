@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, Package, MapPin, Award, Heart, Edit2, Save, X } from "lucide-react";
+import { Leaf, Package, MapPin, Award, Heart, Edit2, Save, X, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Profile = () => {
@@ -21,6 +21,7 @@ const Profile = () => {
   const [editedEmail, setEditedEmail] = useState("");
   const [editedPhone, setEditedPhone] = useState("");
   const [editedAddress, setEditedAddress] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
     const name = localStorage.getItem("userName");
@@ -28,6 +29,7 @@ const Profile = () => {
     const email = localStorage.getItem("userEmail") || "user@ecobazaar.com";
     const phone = localStorage.getItem("userPhone") || "+1 (555) 123-4567";
     const address = localStorage.getItem("userAddress") || "San Francisco, CA";
+    const savedImage = localStorage.getItem("profileImage");
     
     if (!name) {
       navigate("/auth");
@@ -38,6 +40,7 @@ const Profile = () => {
       setEditedEmail(email);
       setEditedPhone(phone);
       setEditedAddress(address);
+      if (savedImage) setProfileImage(savedImage);
     }
   }, [navigate]);
 
@@ -46,12 +49,30 @@ const Profile = () => {
     localStorage.setItem("userEmail", editedEmail);
     localStorage.setItem("userPhone", editedPhone);
     localStorage.setItem("userAddress", editedAddress);
+    if (profileImage) localStorage.setItem("profileImage", profileImage);
     setUserName(editedName);
     setIsEditing(false);
     toast({
       title: "Profile updated! ✓",
       description: "Your changes have been saved successfully.",
     });
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setProfileImage(result);
+        localStorage.setItem("profileImage", result);
+        toast({
+          title: "Profile picture updated",
+          description: "Your profile picture has been uploaded successfully.",
+        });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleCancelEdit = () => {
@@ -82,18 +103,28 @@ const Profile = () => {
             <div className="text-center">
               <div className="relative inline-block mb-4">
                 <Avatar className="w-24 h-24">
-                  <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}`} />
+                  <AvatarImage src={profileImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}`} />
                   <AvatarFallback>{userName.substring(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
-                {isEditing && (
+                <label htmlFor="profile-upload" className="cursor-pointer">
                   <Button
                     size="icon"
                     variant="secondary"
                     className="absolute bottom-0 right-0 h-8 w-8 rounded-full"
+                    asChild
                   >
-                    <Edit2 className="w-4 h-4" />
+                    <span>
+                      <Upload className="w-4 h-4" />
+                    </span>
                   </Button>
-                )}
+                </label>
+                <input
+                  id="profile-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
               </div>
               <h2 className="text-2xl font-bold mb-1">{userName}</h2>
               <p className="text-muted-foreground mb-4">Eco Warrior</p>
