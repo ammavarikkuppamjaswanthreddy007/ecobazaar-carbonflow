@@ -2,16 +2,21 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Leaf, ShoppingCart, User, Menu, X, Search } from "lucide-react";
+import WishlistSheet from "./WishlistSheet";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [carbonPoints, setCarbonPoints] = useState(0);
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem("userName"));
+    const points = localStorage.getItem("carbonPoints");
+    setCarbonPoints(parseInt(points || "160"));
   }, []);
 
   const handleLogout = () => {
@@ -69,13 +74,23 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-4 flex-shrink-0">
+            {isLoggedIn && (
+              <div className="flex items-center gap-1 px-3 py-1 bg-primary/10 rounded-full">
+                <Leaf className="w-4 h-4 text-primary" />
+                <span className="font-bold text-sm">{carbonPoints}</span>
+                <span className="text-xs text-muted-foreground">pts</span>
+              </div>
+            )}
+            
+            <WishlistSheet />
+            
             <Button variant="ghost" size="icon" onClick={() => navigate("/cart")}>
               <ShoppingCart className="w-5 h-5" />
             </Button>
             
             {isLoggedIn ? (
               <>
-                <Button variant="ghost" size="icon" onClick={() => navigate("/profile")}>
+                <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
                   <User className="w-5 h-5" />
                 </Button>
                 <Button variant="outline" onClick={handleLogout}>

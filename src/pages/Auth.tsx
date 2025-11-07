@@ -18,7 +18,7 @@ const Auth = () => {
     // Simulate authentication
     localStorage.setItem("userRole", role);
     localStorage.setItem("userName", "John Doe");
-    localStorage.setItem("carbonPoints", "120");
+    localStorage.setItem("carbonPoints", "160");
     
     toast({
       title: `${type === "login" ? "Welcome back" : "Account created"}! 🌿`,

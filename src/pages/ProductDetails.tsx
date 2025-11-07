@@ -54,12 +54,26 @@ const ProductDetails = () => {
           Back to Products
         </Button>
 
+        <Card className="p-4 mb-6 bg-primary/5 border-primary/20">
+          <p className="text-sm font-medium flex items-center gap-2 flex-wrap">
+            <Leaf className="w-4 h-4 text-primary" />
+            <span className="text-primary">Eco-friendly {product.category}</span>
+            <span className="text-muted-foreground">•</span>
+            <span>100% sustainable materials</span>
+            <span className="text-muted-foreground">•</span>
+            <span className="font-bold text-primary">{product.carbonFootprint} kg CO₂</span>
+          </p>
+        </Card>
+
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           <div className="relative">
             <img 
               src={product.image} 
               alt={product.name}
               className="w-full h-[500px] object-cover rounded-lg shadow-lg"
+              onError={(e) => {
+                e.currentTarget.src = "https://images.unsplash.com/photo-1441986300917-64674bd600d8";
+              }}
             />
             <Badge 
               className="absolute top-4 right-4 text-base px-4 py-2"

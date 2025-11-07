@@ -11,6 +11,7 @@ import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard";
 import SellerDashboard from "./pages/SellerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import About from "./pages/About";
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/seller" element={<SellerDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/about" element={<About />} />
